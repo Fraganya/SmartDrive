@@ -19,15 +19,20 @@ $mimes=array(
 
 class Storage{
 
+    /**
+     * @brief :gets contents of a dire and formarts the content for output
+     */
     public static function getDirInfo($dir){
         $rawContents=array_diff(scandir($dir,1),array('.','..'));
         $contents=Storage::formart($rawContents,$dir);
     
-        return $contents;
-        
+        return $contents; 
     }
 
-
+    /**
+     * @brief adds additional info to contents of a directory
+     * --size , name,type,mime and icon
+     */
     public static function formart($contents,$dir){
         $processed=array();
         $itemNum=0;
@@ -90,6 +95,9 @@ class Storage{
         return $mimes['default'];
     }
 
+    /**
+     * Resolves directory to an absolute path relative to Storage
+     */
     public static function resolve($path,$dir){
         $bits=explode('/',$path);
         $resolved='';

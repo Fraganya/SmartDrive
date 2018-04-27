@@ -3,12 +3,11 @@
  * @file index - router file for handling all requests 
  * @recieves the following request params - 
  * ==> res : index,view or download
- * ==> res_type:folder or file
  * ==> path:storage path name of resource
  */
 
 require_once '__backend/Storage.php';
-$host="http://localhost:8082/smartdrive/";
+$host="http://localhost:8082/smartdrive/"; // IP and port where app is hosted
 
 $res=(isset($_GET['res'])) ? $_GET['res'] : 'index';
 $path=(isset($_GET['path'])) ? $_GET['path'] : null;
