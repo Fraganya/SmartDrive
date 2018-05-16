@@ -20,6 +20,12 @@
         </a>
       </div>
       <ul class="nav navbar-nav navbar-right">
+      <li>
+          <a href="index.php?res=log" style="color:white">
+           <span class="fa fa-list-alt"></span>
+           Log
+          </a>
+        </li>
         <li>
           <a href="#">
             <span class="fa fa-users" style="color:white">

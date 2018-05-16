@@ -24,6 +24,15 @@ if($res=='index'){
     return require_once 'views/index.php';
 }
 
+/**
+ * Check if user wants to see the log
+ */
+if($res=='log'){
+    $logs=Storage::prepLog()->files;
+
+    return require_once 'views/log.php';
+}
+
 /* validate request */
 if(!$path || !$res){
     $msg="Unknown Request Path or Resource was not defined!";

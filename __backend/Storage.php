@@ -57,8 +57,7 @@ class Storage{
         return $processed;
     }
 
-    public static function getSize($path){
-            
+    public static function getSize($path){     
         $size = 0;
         if(is_file($path)){
             return filesize($path);
@@ -116,14 +115,11 @@ class Storage{
 
     public static function download($path){
         $bits=explode('/',$path);
-        if(is_dir($path)){
 
+        if(is_dir($path)){
             //compress contents into archive
-            
             $destination='archives/'.$bits[count($bits)-1].'.zip';
-            
-    
-            
+
             //check if archive does not already exists
             $file_ready=true;
             if(!file_exists($destination)){
@@ -132,13 +128,13 @@ class Storage{
                 if(!$file){
                     $file_ready=false;
                 }
-          
             }
 
             if($file_ready){
                 @header('Content-Type:Application/zip');
                 @header('Content-Disposition: attachment; filename='.$bits[count($bits)-1].'.zip');
                 echo file_get_contents($destination);
+                Storage::log($path);
                 exit();
             }
             else{
@@ -149,7 +145,7 @@ class Storage{
             $mime=Storage::getMime($path);
             @header('Content-Type:'.mime_content_type($path));
             @header('Content-Disposition: attachment; filename='.$bits[count($bits)-1]);
-            echo file_get_contents($path);
+            echo file_get_contents($path); 
             exit();
         }
     
@@ -193,6 +189,47 @@ class Storage{
         
         }
         return $zip->close();
+    }
+
+    public static function log($path){
+        if(!file_exists('logs/downloads.json')){
+            $data=array(
+                'files'=>[],
+                'total'=>0
+            );
+            $data=json_encode($data);
+            //create log file;
+            file_put_contents('logs/downloads.json',json_encode($data));
+        }
+
+       
+        $downloadsLog=json_decode(file_get_contents('logs/downloads.json'));
+
+        $foundFlag=FALSE;
+        
+        foreach($downloadsLog->files as $data){
+                if(strtolower($data->name)==strtolower($path)){
+                    $foundFlag=TRUE;
+                    $data->downloads++;
+                    break;
+                }
+        }
+        if($foundFlag==FALSE){
+            $newItem=array(
+                "name"=>$path,
+                "downloads"=>1
+            );
+            $downloadsLog->files[]=$newItem;
+        }
+
+        var_dump($downloadsLog);
+        file_put_contents('logs/downloads.json',json_encode($downloadsLog));
+    }
+
+    public static function prepLog(){
+        $data=json_decode(file_get_contents("logs/downloads.json"));
+
+        return $data;
     }
 }
 

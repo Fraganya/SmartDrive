@@ -21,12 +21,6 @@
       </div>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <a href="index.php?res=log" style="color:white">
-           <span class="fa fa-list-alt"></span>
-           Log
-          </a>
-        </li>
-        <li>
           <a href="#">
             <span class="fa fa-users" style="color:white">
               <b>CIT 3</b> PROTOTYPE</span>
@@ -38,17 +32,30 @@
 
     <div class="container">
         
-        <div class="panel panel-danger">
-              <div class="panel-heading">
-                    <h3 class="panel-title">(System Error)</h3>
-              </div>
-              <div class="panel-body">
-              <code><?php echo $msg;?></code>
-              </div>
-        </div>
-        <hr>
-        <p style="display:inline-block">Computing Information Technology-3&copy;2018 </p>
-        <p style="display:inline-block" class="pull-right">~ A labour of love</p>
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Resource <i class="fa fa-circle-o-notch" aria-hidden="true"></i></th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($logs as $log): ?>
+                    <tr>
+                        <td>
+                            <?php 
+                                $bits=explode('/',$log->name);
+                                echo $bits[count($bits)-1];
+                             ?>
+                        </td>
+                        <td>
+                            <?php echo $log->downloads; ?>
+                        </td>
+                    </tr>
+                <?php endforeach;?>
+            </tbody>
+        </table>
+        
     </div>
 
 
