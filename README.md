@@ -7,7 +7,7 @@ Project has been co-developed with **Johns Kumchenga** and **Yusuf Chimole** and
 was initially proposed by our lecturer  **Dr A Taylor**
 
 # Installation
-You can manually download the project files and place them in your apache www directpru or you can clone it using 
+You can manually download the project files and place them in your apache www directory or you can clone it using 
 
 **git clone https://github.com/Fraganya/SmartDrive.git**
 
